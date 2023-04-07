@@ -8,13 +8,15 @@ class BookControllerTest {
 
     private val controller = BookController()
 
+    private val book = Book("1", "My life", "Me", "123")
+
     @Test
     fun getBooks() {
-        controller.getBooks() shouldBe listOf(Book("1", "My life", "Me", "123"))
+        controller.getBooks() shouldBe listOf(book)
     }
 
     @Test
     fun postBooks() {
-        controller.postBooks() shouldBe "ok"
+        controller.postBook(book = book) shouldBe "ok"
     }
 }
