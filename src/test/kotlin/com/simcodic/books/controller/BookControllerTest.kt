@@ -16,7 +16,12 @@ class BookControllerTest {
     }
 
     @Test
-    fun postBooks() {
+    fun putBook() {
+        controller.putBook(book = book) shouldBe "ok"
+    }
+
+    @Test
+    fun postBook() {
         controller.postBook(book = book) shouldBe "ok"
     }
 }
