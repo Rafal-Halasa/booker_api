@@ -4,6 +4,7 @@ import com.simcodic.books.data.Book
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -11,8 +12,14 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/books")
 @EnableAutoConfiguration
 class BookController {
+
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getBooks(): List<Book> {
         return listOf(Book("1", "My life", "Me", "123"))
+    }
+
+    @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun postBooks(): String {
+        return "ok"
     }
 }
