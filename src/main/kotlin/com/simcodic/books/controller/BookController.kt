@@ -25,8 +25,8 @@ class BookController {
         return "ok"
     }
 
-    @DeleteMapping()
-    fun deleteBook(@RequestBody book: Book): String {
-        return "ok"
+    @DeleteMapping(value = ["/{id}"])
+    fun deleteBook(@PathVariable(name = "id") id: String): String {
+        return id
     }
 }

@@ -27,6 +27,6 @@ class BookControllerTest {
 
     @Test
     fun deleteBook() {
-        controller.deleteBook(book = book) shouldBe "ok"
+        controller.deleteBook("1") shouldBe "1"
     }
 }
