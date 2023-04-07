@@ -24,4 +24,9 @@ class BookControllerTest {
     fun postBook() {
         controller.postBook(book = book) shouldBe "ok"
     }
+
+    @Test
+    fun deleteBook() {
+        controller.deleteBook(book = book) shouldBe "ok"
+    }
 }
