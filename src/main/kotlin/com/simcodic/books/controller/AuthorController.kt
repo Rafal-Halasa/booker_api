@@ -1,33 +1,34 @@
 package com.simcodic.books.controller
 
 import com.simcodic.books.data.Author
-import com.simcodic.books.data.Book
+import com.simcodic.books.service.AuthorService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/author", produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+@RequestMapping("/author", produces = [MediaType.APPLICATION_JSON_VALUE])
 @EnableAutoConfiguration
-class AuthorController {
+class AuthorController @Autowired constructor(val authorService: AuthorService) {
 
     @GetMapping()
     fun getAuthors(): List<Author> {
-        return listOf(Author("1","Jhony","week", "USA"))
+        return authorService.getAuthors()
     }
 
     @PutMapping()
     fun putAuthor(@RequestBody author: Author): String {
-        return "ok"
+        return authorService.putAuthor(author)
     }
 
     @PostMapping()
     fun postAuthor(@RequestBody author: Author): String {
-        return "ok"
+        return authorService.postAuthor(author)
     }
 
     @DeleteMapping(value = ["/{id}"])
     fun deleteAuthor(@PathVariable(name = "id") id: String): String {
-        return id
+        return authorService.deleteAuthor(id)
     }
 }
