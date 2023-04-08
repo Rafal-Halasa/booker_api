@@ -1,7 +1,7 @@
-package com.simcodic.books.controller
+package com.simcodic.books.presentation.author.controller
 
-import com.simcodic.books.data.Author
-import com.simcodic.books.service.AuthorService
+import com.simcodic.books.domain.author.data.Author
+import com.simcodic.books.domain.author.service.AuthorService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.http.MediaType

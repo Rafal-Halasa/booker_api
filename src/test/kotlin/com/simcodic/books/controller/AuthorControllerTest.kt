@@ -1,7 +1,8 @@
 package com.simcodic.books.controller
 
-import com.simcodic.books.data.Author
-import com.simcodic.books.service.AuthorService
+import com.simcodic.books.domain.author.data.Author
+import com.simcodic.books.presentation.author.controller.AuthorController
+import com.simcodic.books.domain.author.service.AuthorService
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock

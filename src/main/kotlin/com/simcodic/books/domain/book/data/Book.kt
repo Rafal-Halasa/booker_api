@@ -1,4 +1,4 @@
-package com.simcodic.books.data
+package com.simcodic.books.domain.book.data
 
 data class Book(
     var id: String = "",

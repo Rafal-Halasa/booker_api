@@ -1,6 +1,6 @@
-package com.simcodic.books.service
+package com.simcodic.books.domain.book.service
 
-import com.simcodic.books.data.Book
+import com.simcodic.books.domain.book.data.Book
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
 
