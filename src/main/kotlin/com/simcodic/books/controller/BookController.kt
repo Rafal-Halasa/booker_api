@@ -1,6 +1,8 @@
 package com.simcodic.books.controller
 
 import com.simcodic.books.data.Book
+import com.simcodic.books.service.BookService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
@@ -8,25 +10,25 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/books", produces = [MediaType.APPLICATION_JSON_VALUE])
 @EnableAutoConfiguration
-class BookController {
+class BookController @Autowired constructor(val bookService: BookService) {
 
     @GetMapping()
     fun getBooks(): List<Book> {
-        return listOf(Book("1", "My life", "Me", "123"))
+        return bookService.getBooks()
     }
 
     @PutMapping()
     fun putBook(@RequestBody book: Book): String {
-        return "ok"
+        return bookService.putBook(book = book)
     }
 
     @PostMapping()
     fun postBook(@RequestBody book: Book): String {
-        return "ok"
+        return bookService.postBook(book = book)
     }
 
     @DeleteMapping(value = ["/{id}"])
     fun deleteBook(@PathVariable(name = "id") id: String): String {
-        return id
+        return bookService.deleteBook(id = id)
     }
 }
