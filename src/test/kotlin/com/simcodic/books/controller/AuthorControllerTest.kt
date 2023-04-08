@@ -20,28 +20,28 @@ class AuthorControllerTest {
     private val author = Author(id = id, name = name, surname = surname, nationality = nationality)
 
     @Test
-    fun getAuthors() {
+    fun getAuthors_thenGetListOfAuthors() {
         whenever(authorService.getAuthors()).then { listOf(author) }
 
         controller.getAuthors() shouldBe listOf(author)
     }
 
     @Test
-    fun putAuthor() {
+    fun putAuthor_thenGetCorrectValue() {
         whenever(authorService.putAuthor(author)).then { "ok" }
 
         controller.putAuthor(author = author) shouldBe "ok"
     }
 
     @Test
-    fun postAuthor() {
+    fun postAuthor_thenGetCorrectValue() {
         whenever(authorService.postAuthor(author)).then { "ok" }
 
         controller.postAuthor(author = author) shouldBe "ok"
     }
 
     @Test
-    fun deleteAuthor() {
+    fun deleteAuthor_thenGetCorrectValue() {
         whenever(authorService.deleteAuthor("1")).then { "1" }
 
         controller.deleteAuthor("1") shouldBe "1"

@@ -27,21 +27,21 @@ class BookControllerTest {
     }
 
     @Test
-    fun putBook() {
+    fun putBook_thenGetCorrectValue() {
         whenever(bookService.putBook(book)).then { "ok" }
 
         controller.putBook(book = book) shouldBe "ok"
     }
 
     @Test
-    fun postBook() {
+    fun postBook_thenGetCorrectValue() {
         whenever(bookService.postBook(book)).then { "ok" }
 
         controller.postBook(book = book) shouldBe "ok"
     }
 
     @Test
-    fun deleteBook() {
+    fun deleteBook_thenGetCorrectValue() {
         whenever(bookService.deleteBook("1")).then { "1" }
 
         controller.deleteBook("1") shouldBe "1"
