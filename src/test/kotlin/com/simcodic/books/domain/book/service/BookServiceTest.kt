@@ -1,17 +1,14 @@
-package com.simcodic.books.controller
+package com.simcodic.books.domain.book.service
 
 import com.simcodic.books.domain.book.data.Book
-import com.simcodic.books.presentation.book.controller.BookController
-import com.simcodic.books.domain.book.service.BookService
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.mock
+import org.mockito.kotlin.spy
 import org.mockito.kotlin.whenever
 
-class BookControllerTest {
+class BookServiceTest {
 
-    private val bookService: BookService = mock()
-    private val controller = BookController(bookService)
+    private val bookService = spy(BookService())
 
     private val id = "1"
     private val title = "My life"
@@ -24,27 +21,27 @@ class BookControllerTest {
     fun getBooks_thenGetListOfBooks() {
         whenever(bookService.getBooks()).then { listOf(book) }
 
-        controller.getBooks() shouldBe listOf(book)
+        bookService.getBooks() shouldBe listOf(book)
     }
 
     @Test
     fun putBook_thenGetCorrectValue() {
         whenever(bookService.putBook(book)).then { "ok" }
 
-        controller.putBook(book = book) shouldBe "ok"
+        bookService.putBook(book = book) shouldBe "ok"
     }
 
     @Test
     fun postBook_thenGetCorrectValue() {
         whenever(bookService.postBook(book)).then { "ok" }
 
-        controller.postBook(book = book) shouldBe "ok"
+        bookService.postBook(book = book) shouldBe "ok"
     }
 
     @Test
     fun deleteBook_thenGetCorrectValue() {
         whenever(bookService.deleteBook("1")).then { "1" }
 
-        controller.deleteBook("1") shouldBe "1"
+        bookService.deleteBook("1") shouldBe "1"
     }
 }
