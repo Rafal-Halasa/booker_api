@@ -1,6 +1,7 @@
 package com.simcodic.books.domain.author.service
 
 import com.simcodic.books.domain.author.data.Author
+import com.simcodic.books.domain.base.data.SuccessOutput
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.spy
@@ -19,29 +20,29 @@ class AuthorServiceTest {
 
     @Test
     fun getAuthors_thenGetListOfAuthors() {
-        whenever(authorService.getAuthors()).then { listOf(author) }
+        whenever(authorService.getAuthors()).then { SuccessOutput(listOf(author)) }
 
-        authorService.getAuthors() shouldBe listOf(author)
+        authorService.getAuthors().value shouldBe listOf(author)
     }
 
     @Test
     fun putAuthor_thenGetCorrectValue() {
-        whenever(authorService.putAuthor(author)).then { "ok" }
+        whenever(authorService.putAuthor(author)).then { SuccessOutput("ok") }
 
-        authorService.putAuthor(author = author) shouldBe "ok"
+        authorService.putAuthor(author = author).value shouldBe "ok"
     }
 
     @Test
     fun postAuthor_thenGetCorrectValue() {
-        whenever(authorService.postAuthor(author)).then { "ok" }
+        whenever(authorService.postAuthor(author)).then { SuccessOutput("ok") }
 
-        authorService.postAuthor(author = author) shouldBe "ok"
+        authorService.postAuthor(author = author).value shouldBe "ok"
     }
 
     @Test
     fun deleteAuthor_thenGetCorrectValue() {
-        whenever(authorService.deleteAuthor("1")).then { "1" }
+        whenever(authorService.deleteAuthor("1")).then { SuccessOutput("1") }
 
-        authorService.deleteAuthor("1") shouldBe "1"
+        authorService.deleteAuthor("1").value shouldBe "1"
     }
 }

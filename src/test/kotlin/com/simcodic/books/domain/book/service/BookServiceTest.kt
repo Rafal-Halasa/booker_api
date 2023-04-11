@@ -1,5 +1,6 @@
 package com.simcodic.books.domain.book.service
 
+import com.simcodic.books.domain.base.data.SuccessOutput
 import com.simcodic.books.domain.book.data.Book
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -19,29 +20,29 @@ class BookServiceTest {
 
     @Test
     fun getBooks_thenGetListOfBooks() {
-        whenever(bookService.getBooks()).then { listOf(book) }
+        whenever(bookService.getBooks()).then { SuccessOutput(listOf(book)) }
 
-        bookService.getBooks() shouldBe listOf(book)
+        bookService.getBooks().value shouldBe listOf(book)
     }
 
     @Test
     fun putBook_thenGetCorrectValue() {
-        whenever(bookService.putBook(book)).then { "ok" }
+        whenever(bookService.putBook(book)).then { SuccessOutput("ok") }
 
-        bookService.putBook(book = book) shouldBe "ok"
+        bookService.putBook(book = book).value shouldBe "ok"
     }
 
     @Test
     fun postBook_thenGetCorrectValue() {
-        whenever(bookService.postBook(book)).then { "ok" }
+        whenever(bookService.postBook(book)).then { SuccessOutput("ok") }
 
-        bookService.postBook(book = book) shouldBe "ok"
+        bookService.postBook(book = book).value shouldBe "ok"
     }
 
     @Test
     fun deleteBook_thenGetCorrectValue() {
-        whenever(bookService.deleteBook("1")).then { "1" }
+        whenever(bookService.deleteBook("1")).then { SuccessOutput("1") }
 
-        bookService.deleteBook("1") shouldBe "1"
+        bookService.deleteBook("1").value shouldBe "1"
     }
 }

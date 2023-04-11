@@ -2,6 +2,8 @@ package com.simcodic.books.presentation.author.controller
 
 import com.simcodic.books.domain.author.data.Author
 import com.simcodic.books.domain.author.service.AuthorService
+import com.simcodic.books.presentation.base.data.Response
+import com.simcodic.books.presentation.base.data.makeResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.http.MediaType
@@ -13,22 +15,14 @@ import org.springframework.web.bind.annotation.*
 class AuthorController @Autowired constructor(val authorService: AuthorService) {
 
     @GetMapping()
-    fun getAuthors(): List<Author> {
-        return authorService.getAuthors()
-    }
+    fun getAuthors() = makeResponse(authorService::getAuthors)
 
     @PutMapping()
-    fun putAuthor(@RequestBody author: Author): String {
-        return authorService.putAuthor(author)
-    }
+    fun putAuthor(@RequestBody author: Author) = makeResponse { authorService.putAuthor(author) }
 
     @PostMapping()
-    fun postAuthor(@RequestBody author: Author): String {
-        return authorService.postAuthor(author)
-    }
+    fun postAuthor(@RequestBody author: Author) = makeResponse { authorService.postAuthor(author) }
 
     @DeleteMapping(value = ["/{id}"])
-    fun deleteAuthor(@PathVariable(name = "id") id: String): String {
-        return authorService.deleteAuthor(id)
-    }
+    fun deleteAuthor(@PathVariable(name = "id") id: String): Response = makeResponse { authorService.deleteAuthor(id) }
 }

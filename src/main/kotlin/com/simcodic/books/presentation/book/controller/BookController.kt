@@ -2,6 +2,8 @@ package com.simcodic.books.presentation.book.controller
 
 import com.simcodic.books.domain.book.data.Book
 import com.simcodic.books.domain.book.service.BookService
+import com.simcodic.books.presentation.base.data.Response
+import com.simcodic.books.presentation.base.data.makeResponse
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.http.MediaType
@@ -13,22 +15,14 @@ import org.springframework.web.bind.annotation.*
 class BookController @Autowired constructor(val bookService: BookService) {
 
     @GetMapping()
-    fun getBooks(): List<Book> {
-        return bookService.getBooks()
-    }
+    fun getBooks(): Response = makeResponse(bookService::getBooks)
 
     @PutMapping()
-    fun putBook(@RequestBody book: Book): String {
-        return bookService.putBook(book = book)
-    }
+    fun putBook(@RequestBody book: Book) = makeResponse { bookService.putBook(book = book) }
 
     @PostMapping()
-    fun postBook(@RequestBody book: Book): String {
-        return bookService.postBook(book = book)
-    }
+    fun postBook(@RequestBody book: Book) = makeResponse { bookService.postBook(book = book) }
 
     @DeleteMapping(value = ["/{id}"])
-    fun deleteBook(@PathVariable(name = "id") id: String): String {
-        return bookService.deleteBook(id = id)
-    }
+    fun deleteBook(@PathVariable(name = "id") id: String) = makeResponse { bookService.deleteBook(id = id) }
 }
