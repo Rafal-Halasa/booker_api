@@ -1,15 +1,19 @@
 package com.simcodic.books.domain.author.service
 
+import com.simcodic.books.data.author.repository.AuthorRepository
 import com.simcodic.books.domain.author.data.Author
 import com.simcodic.books.domain.base.data.SuccessOutput
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.mock
 import org.mockito.kotlin.spy
 import org.mockito.kotlin.whenever
+import java.util.*
 
 class AuthorServiceTest {
 
-    private val authorService = spy(AuthorService())
+    private val authorRepository: AuthorRepository = mock()
+    private val authorService = spy(AuthorService(authorRepository))
 
     private val id = "1"
     private val name = "Jhony"
@@ -34,6 +38,17 @@ class AuthorServiceTest {
 
     @Test
     fun postAuthor_thenGetCorrectValue() {
+        whenever(authorRepository.findById(id)).then {
+            Optional.of(
+                com.simcodic.books.data.author.data.Author(
+                    id,
+                    name,
+                    surname,
+                    nationality
+                )
+            )
+        }
+
         whenever(authorService.postAuthor(author)).then { SuccessOutput("ok") }
 
         authorService.postAuthor(author = author).value shouldBe "ok"

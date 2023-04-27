@@ -1,31 +1,36 @@
 package com.simcodic.books.domain.author.service
 
+import com.simcodic.books.data.author.repository.AuthorRepository
 import com.simcodic.books.domain.author.data.Author
+import com.simcodic.books.domain.author.data.toEntity
 import com.simcodic.books.domain.base.data.Output
 import com.simcodic.books.domain.base.data.SuccessOutput
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
 
 @Service()
-class AuthorService {
+class AuthorService @Autowired constructor(val authorRepository: AuthorRepository) {
 
     @GetMapping()
-    fun getAuthors(): Output {
-        return SuccessOutput(listOf(Author("1", "Jhony", "week", "USA")))
-    }
+    fun getAuthors(): Output = authorRepository.findAll().run { SuccessOutput(this) }
 
     @PutMapping()
-    fun putAuthor(@RequestBody author: Author): Output {
-        return SuccessOutput("ok")
-    }
+    fun putAuthor(@RequestBody author: Author): Output =
+        authorRepository.save(author.toEntity()).run { SuccessOutput("") }
 
     @PostMapping()
-    fun postAuthor(@RequestBody author: Author): Output {
-        return SuccessOutput("ok")
+    fun postAuthor(@RequestBody author: Author): Output = with(authorRepository) {
+        val authorCopy = findById(author.id).get().copy(
+            name = author.name,
+            surname = author.surname,
+            nationality = author.nationality
+        )
+        save(authorCopy)
+        SuccessOutput("")
     }
 
     @DeleteMapping(value = ["/{id}"])
-    fun deleteAuthor(@PathVariable(name = "id") id: String): Output {
-        return SuccessOutput(id)
-    }
+    fun deleteAuthor(@PathVariable(name = "id") id: String): Output =
+        authorRepository.deleteById(id).run { SuccessOutput("") }
 }

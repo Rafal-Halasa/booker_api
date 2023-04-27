@@ -1,15 +1,18 @@
 package com.simcodic.books.domain.book.service
 
+import com.simcodic.books.data.book.repository.BookRepository
 import com.simcodic.books.domain.base.data.SuccessOutput
 import com.simcodic.books.domain.book.data.Book
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.mock
 import org.mockito.kotlin.spy
 import org.mockito.kotlin.whenever
+import java.util.*
 
 class BookServiceTest {
-
-    private val bookService = spy(BookService())
+    private val bookRepository: BookRepository = mock()
+    private val bookService = spy(BookService(bookRepository))
 
     private val id = "1"
     private val title = "My life"
@@ -34,6 +37,17 @@ class BookServiceTest {
 
     @Test
     fun postBook_thenGetCorrectValue() {
+        whenever(bookRepository.findById(id)).then {
+            Optional.of(
+                com.simcodic.books.data.book.data.Book(
+                    id,
+                    title,
+                    author,
+                    isbn
+                )
+            )
+        }
+
         whenever(bookService.postBook(book)).then { SuccessOutput("ok") }
 
         bookService.postBook(book = book).value shouldBe "ok"
