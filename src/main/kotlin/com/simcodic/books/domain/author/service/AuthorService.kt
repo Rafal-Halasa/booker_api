@@ -3,8 +3,10 @@ package com.simcodic.books.domain.author.service
 import com.simcodic.books.data.author.repository.AuthorRepository
 import com.simcodic.books.domain.author.data.Author
 import com.simcodic.books.domain.author.data.toEntity
+import com.simcodic.books.domain.base.data.FailOutput
 import com.simcodic.books.domain.base.data.Output
 import com.simcodic.books.domain.base.data.SuccessOutput
+import com.simcodic.books.domain.exceptions.FieldNotFound
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
@@ -21,13 +23,15 @@ class AuthorService @Autowired constructor(val authorRepository: AuthorRepositor
 
     @PostMapping()
     fun postAuthor(@RequestBody author: Author): Output = with(authorRepository) {
-        val authorCopy = findById(author.id).get().copy(
-            name = author.name,
-            surname = author.surname,
-            nationality = author.nationality
-        )
-        save(authorCopy)
-        SuccessOutput("")
+        author.id?.let {
+            val authorCopy = findById(it).get().copy(
+                name = author.name,
+                surname = author.surname,
+                nationality = author.nationality
+            )
+            save(authorCopy)
+            SuccessOutput("")
+        } ?: FailOutput(FieldNotFound())
     }
 
     @DeleteMapping(value = ["/{id}"])
