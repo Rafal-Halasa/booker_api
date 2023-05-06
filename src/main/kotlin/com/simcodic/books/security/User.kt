@@ -17,32 +17,32 @@ import java.util.*
 @Entity
 @Table(name = "user")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class User(
+open class User(
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "varchar(36)")
-    var id: String = "",
+    open var id: String = "",
     @Column(unique = true, nullable = false)
     @NotNull
     @Email
-    var email: String = "",
+    open var email: String = "",
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank
-    var pwd: String = "",
+    open var pwd: String = "",
     @NotBlank
-    var firstName: String = "",
+    open var firstName: String = "",
     @NotBlank
-    var lastName: String = "",
-    var roles: String = "",
-    var enabled: Boolean = true,
-    var accountNonExpired: Boolean = true,
-    var accountNonLocked: Boolean = true,
-    var credentialsNonExpired: Boolean = true,
+    open var lastName: String = "",
+    open var roles: String = "",
+    open var enabled: Boolean = true,
+    open var accountNonExpired: Boolean = true,
+    open var accountNonLocked: Boolean = true,
+    open var credentialsNonExpired: Boolean = true,
     @CreationTimestamp
-    var created: Date = Date(),
+    open var created: Date = Date(),
     @UpdateTimestamp
-    var modified: Date = Date(),
+    open var modified: Date = Date(),
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         val authorities = mutableListOf<GrantedAuthority>()
